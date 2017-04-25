@@ -1,179 +1,102 @@
 <template>
     <!-- Main content -->
   <section class="content">
+
     <div class="row center-block">
-      <div class="col-md-12">
-        <div class="box">
-          <div class="box-header with-border">
-            <!-- <h3 class="box-title">调休使用记录</h3> -->
-            <form action="" class="form-inline">
-              
-              <div class="form-group">
-                <label for="">姓名</label>
-                <input type="text" class="form-control" v-model="searchText" placeholder="姓名">
 
-              <div class="form-group">
-                <button data-toggle="modal" data-target="#modal2" class="btn btn-primary">
-                  增加
-                </button>
+      <div class="callout callout-info">
+        <h4 class="text-center">区块链操作示例</h4>
+      </div>
+      <div class='col-md-6 col-sm-6 col-xs-12'>
+        <div class='info-box'>
+          <span class='info-box-icon bg-yellow'><i class='ion ion-ios-people-outline'></i></span>
+
+          <div class='info-box-content'>
+            <span class='info-box-text'>A余额</span>
+            <span class='info-box-number'>{{ banlance[0].A }}</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <div class="row center-block">
+        <div class='col-md-6 col-sm-6 col-xs-12'>
+          <div class='info-box'>
+            <span class='info-box-icon bg-yellow'><i class='ion ion-ios-people-outline'></i></span>
+
+            <div class='info-box-content'>
+              <span class='info-box-text'>B余额</span>
+              <span class='info-box-number'>{{ banlance[1].B }}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+      </div>
+
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-info">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+                初始化余额
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <div class="box-body">
+                <form class="form-inline"> 
+                  <div class="form-group">
+                    <label>初始化A余额：</label>
+                    <input type="text" class="form-control" v-model="initA" placeholder="A余额">
+                    <br>
+                    <br>
+
+                    <label>初始化B余额：</label>
+                    <input type="text" class="form-control" v-model="initB" placeholder="B余额"><label></label>
+                  </div>
+                </form>
+                <br>
+                <button class="btn btn-primary" @click="init">初始化</button>
               </div>
-            </form>
-            
+            </div>
           </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <table class="table table-bordered">
-              <thead>
-              	<tr>
-                  <th>工号</th>
-                  <th>姓名</th>
-                  <th>职称</th>
-                  <th>学科</th>
-                  <th>研究方向</th>
-                  <th>Email</th>
-                  <th>办公室</th>
-                  <th>接待时间</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="even" role="row" v-for="item in items">
-                  <td>{{ item.id }}</td>
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.title }}</td>
-                  <td>{{ item.subject }}</td>
-                  <td>{{ item.project }}</td>
-                  <td>{{ item.email }}</td>
-                  <td>{{ item.office }}</td>
-                  <td>{{ item.openinghours }}</td>
-                  <td>
-                    <button class="btn btn-primary"  data-toggle="modal" data-target="#modal" @click="setItem(item)">修改</button>
-                    <button class="btn btn-primary" @click="deleteItem(item)">删除</button>
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th colspan="1" rowspan="1">工号</th>
-                  <th colspan="1" rowspan="1">姓名</th>
-                  <th colspan="1" rowspan="1">职称</th>
-                  <th colspan="1" rowspan="1">学科</th>
-                  <th colspan="1" rowspan="1">研究方向</th>
-                  <th colspan="1" rowspan="1">Email</th>
-                  <th colspan="1" rowspan="1">办公室</th>
-                  <th colspan="1" rowspan="1">接待时间</th>
-                  <th colspan="1" rowspan="1">操作</th>
-                </tr>
-              </tfoot>
-            </table>
+        </div>
+
+        <div class="panel panel-success">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                交易操作
+              </a>
+            </h4>
           </div>
-          <!-- /.box-body -->
-        <!-- /.box -->
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="box-body">
+              <div class="box-body">
+                <form class="form-inline"> 
+                  <div class="form-group">
+                    <label>交易发起者：</label>
+                    <input type="radio" id="one" value="a" v-model="invoker">
+                    <label for="one">A</label>
+                    <input type="radio" id="two" value="b" v-model="invoker" style="margin-left:20px;">
+                    <label for="two">B</label>
+                    <br>
+                    <br>
+                    <label>交易金额:</label>
+                    <input type="text" class="form-control" v-model="amount" placeholder="交易金额"><label></label>
+                  </div>
+                </form>
+                <br>
+                <button class="btn btn-primary" @click="invoke">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">请输入修改信息</h4>
-            </div>
-            <div class="modal-body">
-              <form action="">
-                <div class="form-group">
-                  <label for="">姓名</label>
-                  <input type="text" class="form-control" v-model="activeItem.name">
-                </div>
-                <div class="form-group">
-                  <label for="">职称</label>
-                  <input type="text" class="form-control" v-model="activeItem.title">
-                </div>
-                <div class="form-group">
-                  <label for="">学科</label>
-                  <input type="text" class="form-control" v-model="activeItem.subject">
-                </div>
-                <div class="form-group">
-                  <label for="">研究方向</label>
-                  <input type="text" class="form-control" v-model="activeItem.project">
-                </div>
-                <div class="form-group">
-                  <label for="">Email</label>
-                  <input type="text" class="form-control" v-model="activeItem.email">
-                </div>
-                <div class="form-group">
-                  <label for="">办公室</label>
-                  <input type="text" class="form-control" v-model="activeItem.office">
-                </div>
-                <div class="form-group">
-                  <label for="">接待时间</label>
-                  <input type="text" class="form-control" v-model="activeItem.openinghours">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" @click="updateItem">提交</button>
-            </div>
-        </div><!-- /.modal-content -->
-      </div>
-    </div>
-
-    <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">请输入修改信息</h4>
-            </div>
-            <div class="modal-body">
-              <form action="">
-                <div class="form-group">
-                  <label for="">工号</label>
-                  <input type="number" class="form-control" v-model="addItem.userId">
-                </div>
-                <div class="form-group">
-                  <label for="">密码</label>
-                  <input type="text" class="form-control" v-model="addItem.userPw">
-                </div>
-                <div class="form-group">
-                  <label for="">姓名</label>
-                  <input type="text" class="form-control" v-model="addItem.userName">
-                </div>
-                <div class="form-group">
-                  <label for="">职称</label>
-                  <input type="text" class="form-control" v-model="addItem.userTitle">
-                </div>
-                <div class="form-group">
-                  <label for="">学科</label>
-                  <input type="text" class="form-control" v-model="addItem.userSubject">
-                </div>
-                <div class="form-group">
-                  <label for="">研究方向</label>
-                  <input type="text" class="form-control" v-model="addItem.userProject">
-                </div>
-                <div class="form-group">
-                  <label for="">Email</label>
-                  <input type="text" class="form-control" v-model="addItem.userEmail">
-                </div>
-                <div class="form-group">
-                  <label for="">办公室</label>
-                  <input type="text" class="form-control" v-model="addItem.userOffice">
-                </div>
-                <div class="form-group">
-                  <label for="">接待时间</label>
-                  <input type="text" class="form-control" v-model="addItem.userTime">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" @click="addUser">提交</button>
-            </div>
-        </div><!-- /.modal-content -->
-      </div>
-    </div>
-      <!-- /.modal -->
+    <!-- /.modal -->
   </section>
     <!-- 模态框（Modal） -->
 </template>
@@ -181,96 +104,148 @@
 export default {
   data() {
     return {
-      activeItem: [],
-      searchText: '',
-      addItem: {
-        userName: '',
-        userTitle: '',
-        userEmail: '',
-        userSubject: '',
-        userProject: '',
-        userOffice: '',
-        userTime: '',
-        userId: Number,
-        userPw: ''
+      initA: "",
+      initB: "",
+      invoker: "",
+      amount: ""
       }
-    }
   },
-  computed: {
-    items () {
-      var self = this
-      var key = self.searchText
-      return self.$store.getters.getItems.filter(function(item){
-        return item.name.indexOf(key) !== -1
-      })
-    }
-  },
+
   created: function() {
     var self = this
-    self.$http.post('http://localhost:1111/list/loadList').then(
-        function (response) {
-          var data = eval(response.data)
-          if (response.data) {
-            if (data.success) {
-              self.$store.commit('LOAD_ITEMS', data.msg)
-            } else {
-              console.log("failure")
-            }
-          } else {
-            self.response = 'Did not receive a response. Please try again in a few minutes'
-          }
-        },
-        function (response) {
-        // error
-        // store.commit('TOGGLE_LOADING')
-        console.log('Error', response)
-        self.response = 'Server appears to be offline'
-        self.toggleLoading()
-      })
+    var banlance = [
+      {"A": "暂无"},
+      {"B": "暂无"}
+      ]
+    console.log("created")
+    self.$store.dispatch("loadBanlance", banlance)
   },
+
+  computed: {
+    banlance () {
+      var self = this
+      return self.$store.getters.getBanlance
+    }
+  },
+  
   methods: {
-    deleteItem: function (item) {
-      this.$store.commit('DELETE_ITEM',item)
+    /*payLoad: function (method, chaincodeID, args, id){
+      var payLoad = {
+        "jsonrpc": "2.0",
+        "method": method,
+        "params": {
+          "type": 1,
+          "chaincodeID": chaincodeID,
+          "ctorMsg": {
+            "function": method,
+            "args": args
+          },
+          "secureContext": "jim"
+        },
+        "id": id
+      }
+      var jsonData = JSON.stringify(payLoad)
+      return jsonData
+    },*/
+
+    init: function(){
+      var self = this
+      var valA = self.initA
+      var valB = self.initB
+      var valC = "300"
+      var valD = "400"
+      var valE = "500"
+      // var banlance = ""
+      console.log("initA:"+valA+"; "+"initB:"+valB)
       var options = {
-        "userName": item.id
+        "valA": valA,
+        "valB": valB,
+        "valC": valC,
+        "valD": valD,
+        "valE": valE
       }
       var jsonData = JSON.stringify(options)
-      this.$http.post('http://localhost:1111/list/deleteUser', jsonData)
+      self.$http.post('http://localhost:1111/chaincode/init', jsonData).then(
+        function(response) {
+          /******to be continued********/
+          var data = eval(response.data)
+          console.log(data)
+          self.query()
+        })
     },
-    addUser: function () {
+
+    query: function () {
+     /* var self = this
+      var callId = id
+      var tick = self.$store.getters.getTick
+      var chaincodeID = self.$store.getters.getCCID
+      var queryData = self.payLoad("query", {"name":chaincodeID}, [id], 5)*/
       var self = this
-      var jsonData = JSON.stringify(self.addItem)
-      self.$http.post('http://localhost:1111/list/addUser', jsonData)
-      var newItem = {
-        name: self.addItem.userName,
-        id: self.addItem.userId,
-        title: self.addItem.userTitle,
-        openinghours: self.addItem.userTime,
-        office: self.addItem.userOffice,
-        subject: self.addItem.userSubject,
-        project: self.addItem.userProject,
-        email: self.addItem.userEmail
-      }
-      self.$store.commit("ADD_ITEM", newItem)
+      self.$http.post('http://localhost:1111/chaincode/query').then(
+        function(response) {
+          var data = eval(response.data)
+          console.log("queryData:")
+          console.log(data[1])
+          var banlance = [
+          {"A": data[0]},
+          {"B": data[1]}
+          ]
+          self.$store.dispatch("loadBanlance", banlance)
+          return data
+          /*if (data.error) {
+            console.log("error")
+            tick--;
+            console.log(tick)
+            self.$store.dispatch("loadTick", tick)
+            if(tick > 0){
+              self.query(callId)
+            }else {
+              return Promise.resolve("数值出错")
+              var banlance = [
+                        {"A": "无法查询"},
+                        {"B": "无法查询"}]
+              console.log(banlance)
+              self.$store.dispatch("loadBanlance", banlance)
+              self.$store.dispatch("loadTick", 1000)
+            }
+          } else {
+            var val = data.result.message
+            console.log(val)
+            self.$store.dispatch("loadTick", 1000)
+            return Promise.resolve(val)
+          }*/
+        })
     },
-    updateItem: function () {
-      var activeItem = this.activeItem
+
+    invoke: function () {
+      var self = this
+      var invokeA = ""
+      var invokeB = ""
+      var amount = self.amount
+      console.log(self.invoker)
+      if(self.invoker == "a") {
+        invokeA = "a"
+        invokeB = "b"
+      }else {
+        invokeA = "b"
+        invokeB = "a"
+      }
       var options = {
-        "userId": activeItem.id,
-        "userName": activeItem.name,
-        "userTitle": activeItem.title,
-        "userSubject": activeItem.subject,
-        "userProject": activeItem.project,
-        "userEmail": activeItem.email,
-        "userOffice": activeItem.office,
-        "userTime": activeItem.openinghours
+        "invokeA" : invokeA,
+        "invokeB" : invokeB,
+        "amount" : amount
       }
       var jsonData = JSON.stringify(options)
       console.log(jsonData)
-      this.$http.post('http://localhost:1111/list/updateUser', jsonData)
-    },
-    setItem (item) {
-      this.activeItem = item
+      this.$http.post('http://localhost:1111/chaincode/invoke', jsonData).then(
+        function (response) {
+          var data = eval(response.data)
+          console.log(data)
+          setTimeout(function(){
+            self.query()
+          },2000)
+          // self.query()
+        })
     }
   }
 }

@@ -131,9 +131,9 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
           <li class="header">LIST</li>
-          <li class="pageLink"><router-link to="/dash"><i class="fa fa-table"></i><span class="page">教师名单</span></router-link></li>
+          <li class="pageLink"><router-link to="/dash"><i class="fa fa-table"></i><span class="page">区块链部署</span></router-link></li>
 
-          <li class="pageLink"><router-link to="/group"><i class="fa fa-table"></i><span class="page">教师组名单</span></router-link></li>
+          <li class="pageLink"><router-link to="/group"><i class="fa fa-table"></i><span class="page">批量测试</span></router-link></li>
 
         </ul>
         <!-- /.sidebar-menu -->

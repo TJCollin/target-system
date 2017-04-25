@@ -4,15 +4,12 @@ import UserTable from './components/dash/UserTable'
 import GroupTable from './components/dash/GroupTable'
 
 const routes = [{
-	path: '/login',
-	component: LoginView,
-	alias: '/'
-},{
 	path: '/dash',
 	component: DashView,
+	alias: '/',
 	auth: true,
 	children: [{
-		path: '',
+		path: '/dash',
 		component: UserTable
 	},{
 		path: '/group',

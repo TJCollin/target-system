@@ -4,55 +4,44 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  groupItems: [],
-  checkItems: [],
-  initItems: [],
-  items: []
+  CCID: '',
+  tick: 1000,
+  banlance: []
 }
 
 const getters = {
-  getCheckItems: state => {
-    return state.checkItems
+  getCCID: state => {
+    return state.CCID
   },
-  getItems: state => {
-    return state.items
+  getBanlance: state => {
+    return state.banlance
   },
-  getGroupItems: state => {
-    return state.groupItems
-  },
-  getInitItems: state => {
-    return state.initItems
+  getTick: state => {
+    return state.tick
   }
 }
 const mutations = {
-  LOAD_INIT_ITEMS (state, list){
-    state. initItems = list
+  LOAD_CCID (state, id) {
+    state.CCID = id
   },
-  LOAD_CHECK_ITEMS (state, list) {
-    state.checkItems = list
+  LOAD_TICK (state, tick) {
+    state.tick = tick
   },
-  LOAD_GROUP_ITEMS (state, list) {
-    state.groupItems = list
-  },
-  CLEAN_ITEMS (state) {
-    state.items = [];
-  },
-  LOAD_ITEMS (state, list) {
-    state.items = list;
-  },
-  DELETE_ITEM (state, item) {
-    var index = state.items.indexOf(item)
-    state.items.splice(index,1)
-  },
-  ADD_ITEM (state, item) {
-    state.items.push(item)
+  LOAD_BANLANCE (state, banlance) {
+    state.banlance = banlance
   }
 }
 
 const actions = {
-  toggleLoading ({ dispatch }) {
-  dispatch('TOGGLE_LOADING')
-}
+  loadCCID ({commit}, id) {
+    commit('LOAD_CCID', id)
+  },
+  loadBanlance ({ commit }, banlance) {
+    commit('LOAD_BANLANCE', banlance)
+  },
+  loadTick ({ commit }, tick){
+    commit('LOAD_TICK', tick)
+  }
 }
 
 export default new Vuex.Store({
